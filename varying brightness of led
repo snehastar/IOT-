@@ -1,0 +1,47 @@
+int ledyellow=3;
+int ledgreen=6;
+int n1,n2;
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+Serial.println("Enter number for ledgreen"); // taking input from user max is 255 (5v) and min is 0 (0v)
+while(Serial.available()==0){}
+n2=Serial.read();
+
+Serial.println("Enter number for ledyellow");
+while(Serial.available()==0){}
+n1=Serial.read();
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+int i,j,k;
+Serial.println("This is for YELLOW");
+for(i=0;i<=n1;i++) // varying the value of input
+{
+  analogWrite(ledyellow,i);
+  delay(100);
+  Serial.println(i);
+}
+Serial.println("This is for GREEN");
+for(j=0;j<=n2;j++)
+{
+  analogWrite(ledgreen,j);
+  delay(100);
+  Serial.println(j);
+}
+Serial.println("Yellow and green decreasing intensity");
+for(i=n1,j=n2;i>=0,j>=0;i--,j--)
+{
+  Serial.print("YELOW:");
+  Serial.println(i);
+  Serial.print("GREEN");
+  Serial.println(j);
+  analogWrite(ledyellow,i);
+  delay(100);
+  analogWrite(ledgreen,j);
+  delay(100);
+}
+
+}
