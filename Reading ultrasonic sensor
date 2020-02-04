@@ -1,0 +1,31 @@
+//code for node mcu
+int trigPin=2; //Sensor Trip pin connected to Arduino pin D0
+int echoPin=0;  //Sensor Echo pin connected to Arduino pin D2
+long pingTime;
+float  speedOfSound = 340;// speed of sound in air in m/s
+float targetDistance; //to be caculated
+ 
+void setup() {
+Serial.begin(115200);
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+}
+void loop() {   delay(250);
+
+    
+  // this is for ultrasonic sensor
+  
+  digitalWrite(trigPin, LOW); //Set trigger pin low
+  delayMicroseconds(2000); //Let signal settle
+  digitalWrite(trigPin, HIGH); //Set trigPin high
+  delayMicroseconds(10); //Delay in high state
+  digitalWrite(trigPin, LOW); //ping has now been sent
+  
+  pingTime = pulseIn(echoPin, HIGH);  //pingTime is presented in microceconds
+  pingTime = pingTime/1000000;
+
+ 
+  targetDistance = (speedOfSound * pingTime)/2; // calculating distance
+  Serial.println("Distance in m is: ");
+  Serial.println(targetDistance);
+}
