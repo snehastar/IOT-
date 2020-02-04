@@ -1,0 +1,43 @@
+#include <LiquidCrystal.h> //Load Liquid Crystal Library
+LiquidCrystal LCD(12, 11, 5, 4, 3, 2);  //Create Liquid Crystal Object called LCD
+int trigPin=8; //Sensor Trip pin connected to Arduino pin 13
+int echoPin=6;  //Sensor Echo pin connected to Arduino pin 11
+float pingTime;
+float  speedOfSound = 340;// speed of sound in air in m/s
+float targetDistance; //to be caculated
+ 
+void setup() {
+Serial.begin(9600);
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+LCD.begin(16,2); //Tell Arduino to start your 16 column 2 row LCD
+LCD.setCursor(0,0);  //Set LCD cursor to upper left corner, column 0, row 0
+
+}
+ 
+void loop() {
+    
+  // this is for ultrasonic sensor
+  
+  digitalWrite(trigPin, LOW); //Set trigger pin low
+  delayMicroseconds(2000); //Let signal settle
+  digitalWrite(trigPin, HIGH); //Set trigPin high
+  delayMicroseconds(10); //Delay in high state
+  digitalWrite(trigPin, LOW); //ping has now been sent
+  
+  pingTime = pulseIn(echoPin, HIGH);  //pingTime is presented in microceconds
+  pingTime = pingTime/1000000;
+
+ 
+  targetDistance = (speedOfSound * pingTime)/2; // calculating distance
+  Serial.println("Distance in m is: ");
+  Serial.println(targetDistance);
+    delay(250);
+   // this is for LCD 
+   // //Go to 1st column(column 0) and 2nd row(row 1)
+   LCD.setCursor(0,0);  //Set LCD cursor to upper left corner, column 0, row 0
+   LCD.print("Distance in m is");
+   LCD.setCursor(0,1);  
+   LCD.print(targetDistance);
+     delay(250);
+}
