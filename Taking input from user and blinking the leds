@@ -1,0 +1,35 @@
+int led1=13;
+int led2=9;
+int num;
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(led1,OUTPUT);
+pinMode(led2,OUTPUT);
+Serial.println("Enter a number");
+
+while(Serial.available()==0){}
+num= Serial.parseInt();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+for(int i=0;i<=num;i++)
+{
+  digitalWrite(led1,HIGH);
+  Serial.print("Blink #:");
+  Serial.println(i);
+  delay(250);
+  digitalWrite(led1,LOW);
+  delay(100);
+}
+for(int j=0;j<=num;j++)
+{
+  digitalWrite(led2,HIGH);
+  Serial.print("Blink #:");
+  Serial.println(j);
+  delay(250);
+  digitalWrite(led2,LOW);
+  delay(100);
+} 
+}
