@@ -1,0 +1,14 @@
+int ledpin = D0; // this is the digital input pin D0 where the anode of led of fixed
+void setup() {
+  Serial.begin(9600); // 9600 is the baud rate 
+  pinMode(ledpin,OUTPUT);// put your setup code here, to run once:
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+digitalWrite(ledpin,HIGH);
+delay(1000); // after the led glows it waits for 1000 milliseonds
+digitalWrite(ledpin,LOW);
+delay(1000); // led does not glow for 1000 milliseonds
+}
